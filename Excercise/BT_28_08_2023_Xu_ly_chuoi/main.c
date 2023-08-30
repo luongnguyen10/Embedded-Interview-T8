@@ -5,13 +5,6 @@
 
 
 // in hoa các kí tự sau sau dấu chấm. = > TODAY WE LEARN ABOUT THAT ...
-typedef struct{
-    char *arr;
-    uint8_t length;
-    uint8_t quantity;
-    bool status;
-}Words;
-
 void UpperCharacterAfterDot(char array[]){
     uint8_t address = 0 ; 
     uint8_t i = 0 ;
@@ -62,7 +55,7 @@ void FindString(char array[],char str[]){
     else printf("Khong co chuoi trong chuoi");
 }
 
-// "around the world " => thay thế thành hello, kiểm tra chuỗi, nếu có thì in ra còn không thì in ra không có
+
 
 int main(int argc, char const *argv[]){
 
@@ -73,8 +66,6 @@ int main(int argc, char const *argv[]){
     char str[] = "how to do";
 
     FindString(input, str );
-
-    
 
     return 0;
 }
