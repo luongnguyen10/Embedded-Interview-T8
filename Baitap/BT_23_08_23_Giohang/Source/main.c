@@ -75,11 +75,11 @@ void Show_item(uint8_t *gio_hang) {
 
 int main(){
     
-    ADD_Vao_gio_hang(&GIO_HANG, AO | TUI | NHAN | VONG_TAY | VAY | DAM);
+    ADD_Vao_gio_hang(&GIO_HANG, AO | TUI | NHAN | VONG_TAY);
 
-    Delete_Item(&GIO_HANG, NHAN|VONG_TAY);
+    Delete_Item(&GIO_HANG, NHAN);
 
-    CheckItem(&GIO_HANG, NHAN|VONG_TAY|VAY |AO);
+    CheckItem(&GIO_HANG, NHAN|VONG_TAY);
 
     Show_item(&GIO_HANG);
 

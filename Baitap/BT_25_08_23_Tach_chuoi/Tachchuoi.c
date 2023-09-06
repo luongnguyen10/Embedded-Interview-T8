@@ -65,14 +65,6 @@ void display( Words word){
     
 }
 
-void copy_substring(char *dest, const char *src, uint8_t length) {
-    for (uint8_t i = 0; i < length; i++) {
-        dest[i] = src[i];
-    }
-    dest[length] = '\0';
-}
-
-
 // So sánh 2 mảng
 bool isEqual(Words word1, Words word2){
     if (word1.length != word2.length) {
