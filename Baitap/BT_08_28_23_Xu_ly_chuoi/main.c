@@ -10,20 +10,19 @@ void UpperCharacterAfterDot(char array[]){
     uint8_t i = 0 ;
     uint8_t flat = 0;
 
-    printf("\nIn ra chuoi IN HOA sau dau cham '.' \n ");
+    printf("\nIn ra chuoi IN HOA sau dau cham '.'\n ");
 
     while (array[i] != '\0'){
         if (array[i] == '.'){
             flat++;
         }
         if (flat > 0){
-            if (array[i]>=97 && array[i]<=122)
-            array[i]-=32;
+            if (array[i]>=97 && array[i]<=122) array[i]-=32;
         }
         printf("%c", array[i]);
         i++;
     }
-    printf("\n ");
+    printf("\n");
 }
 
 // "how to do", => in ra có hoặc không, nếu có thì in ra vị trí
@@ -33,7 +32,7 @@ uint8_t take_length(char array[]){
     return i;
 }
 
-uint8_t FindString(char array[],char str[]){
+uint8_t FindText(char array[],char str[]){
     printf("\nTim kiem chuoi trong chuoi\n");
     uint8_t i = 0;
     uint8_t size = take_length(str);
@@ -45,7 +44,10 @@ uint8_t FindString(char array[],char str[]){
         uint8_t flat = 0;
         while (str[j] != '\0'){
             if (array[k] == str[j])  flat++;
-            if (flat == size) count++;
+            if (flat == size) {
+                count++;
+                // printf("Vi tri: %d\n",j );
+            }
             k++;
             j++; 
         }
@@ -54,44 +56,73 @@ uint8_t FindString(char array[],char str[]){
     if (count > 0) printf("Co chuoi trong chuoi\n");
     else printf("Khong co chuoi trong chuoi");
     return count;
+    // return 0;
 }
 
 // "around the world " => thay thế thành hello, kiểm tra chuỗi, nếu có thì in ra còn không thì in ra không có
 void ReplaceString(char array[],char str[], char replace_str[]){
     
     printf("\nThay the gia tri trong chuoi\n");
+    
     uint8_t i = 0;
+    // uint8_t count = FindText(array, str);
 
+    // Tính độ dài chuỗi
     uint8_t size_str = take_length(str);
     uint8_t size_replace_str = take_length(replace_str);
+    uint8_t size_array = take_length(array);
 
-    uint8_t count = FindString(array, str);
+    uint8_t count = 0;
 
-    char string_replaced[] = malloc((sizeof(size_replace_str)-sizeof(size_str))* count + sizeof(array));
-    
+    // Lấy vị trí đầu và cuối 
+    uint8_t first_location;
+    uint8_t final_location;
+
     while (array[i] != '\0'){
         uint8_t j = 0 ;
         uint8_t k = i ;
         uint8_t flat = 0;
-        uint8_t counter = 0;
-
-        while (array[i] != '\0'){
-            uint8_t j = 0 ;
-            uint8_t k = i ;
-            uint8_t flat = 0;
-
-            while (str[j] != '\0'){
-                if (array[k] == str[j])  flat++;
-                if (flat == size_str) {
-                    counter++;
-                    i += size_str;
-                }
+        while (str[j] != '\0'){
+            if (array[k] == str[j])  flat++;
+            if (flat == size_str) {
+                count++;
+                first_location = i;
+                final_location = k;
+                printf("Vi tri dau: %d, vi tri cuoi %d\n",first_location,final_location );
+            }
+            k++;
+            j++; 
+        }
+    i++;    
+    }
+    
+    // Copy ra một mảng mới
+    
+    uint8_t length_updated = (size_replace_str-size_str) * count + size_array;
+    char *new_string = malloc(((size_replace_str-size_str)*count + size_array )* sizeof(char));
+    
+    i = 0;
+    uint8_t j = 0 ;
+    printf("Count: %d, Do dai chuoi moi: %d\n",count, length_updated );
+    while (array[i] != '\0'){
+        uint8_t k = 0 ;
+        if (i == first_location){
+            while (replace_str[k] != '\0')
+            {
+                new_string[j]= replace_str[k];
                 k++;
-                j++; 
-            }  
-        string_replaced[i]= array[i];
+                j++;
+            }
+            i = i + (final_location - first_location) +1;
+        }
+        new_string[j]= array[i];
+        j++;
         i++;
         }
+    i=0;
+    for (i; i < length_updated ; i++)
+    {
+        printf("%c", new_string[i]);
     }
 }
 
@@ -102,14 +133,9 @@ int main(){
 
     UpperCharacterAfterDot(input);
 
-    char str[] = "how to do";
+    uint8_t count = FindText(input, "how to do");
 
-    uint8_t count = FindString(input, str);
-
-
-    char str_replace[] = "Hello";
-
-    ReplaceString(input, str, str_replace);
+    ReplaceString(input, "how to do", "Hellooooooooooooo");
 
     return 0;
 }
