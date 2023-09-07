@@ -1,13 +1,28 @@
+#include "myheader.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include <stdbool.h>
+
+/*
+* File: function.c
+* Author: Nguyen Ba Luong
+* Date: 06/09/2023
+* Description: File the the day of week from the given date 
+*/
+
+/*
+* Function: upperCharacterAfterDot
+* Description: This function Upper the character after the dot
+*                in hoa các kí tự sau sau dấu chấm. = > TODAY WE LEARN ABOUT THAT ...
+* Input:
+*   array[] - char
+* Output:
+*   returns The character with UPPER after the dot
+*/
 
 
-// in hoa các kí tự sau sau dấu chấm. = > TODAY WE LEARN ABOUT THAT ...
-void UpperCharacterAfterDot(char array[]){
-    uint8_t address = 0 ; 
-    uint8_t i = 0 ;
+void upperCharacterAfterDot(char array[]){
+    int8_t i = 0 ;
     uint8_t flat = 0;
 
     printf("\nIn ra chuoi IN HOA sau dau cham '.'\n ");
@@ -25,17 +40,36 @@ void UpperCharacterAfterDot(char array[]){
     printf("\n");
 }
 
-// "how to do", => in ra có hoặc không, nếu có thì in ra vị trí
-uint8_t take_length(char array[]){
+/*
+* Function: takeLength
+* Description: Calculate the length of character array
+* Input:
+*   array[] - char
+* Output:
+*   returns int length of array
+*/
+
+uint8_t takeLength(char array[]){
     int i = 0;
     for ( i = 0; array[i] != '\0'; ++i);
     return i;
 }
 
-uint8_t FindText(char array[],char str[]){
+/*
+* Function: findText
+* Description: Calculate the length of character array
+* "how to do", => in ra có hoặc không, nếu có thì in ra vị trí
+* Input:
+*       array[] - string 
+*       str[] - the text need to find
+* Output:
+*       print yes or no the the text in string; if yes print the position
+*/
+
+uint8_t findText(char array[],char str[]){
     printf("\nTim kiem chuoi trong chuoi\n");
     uint8_t i = 0;
-    uint8_t size = take_length(str);
+    uint8_t size = takeLength(str);
     uint8_t count = 0;
 
     while (array[i] != '\0'){
@@ -59,8 +93,19 @@ uint8_t FindText(char array[],char str[]){
     // return 0;
 }
 
-// "around the world " => thay thế thành hello, kiểm tra chuỗi, nếu có thì in ra còn không thì in ra không có
-void ReplaceString(char array[],char str[], char replace_str[]){
+/*
+* Function: replaceString
+* Description: Calculate the length of character array
+* // "around the world " => thay thế thành hello, kiểm tra chuỗi, nếu có thì in ra còn không thì in ra không có
+* Input:
+*       array[] - string 
+*       str[] - the text need to find
+*       replace_str[] - the text after replace
+* Output:
+*       print the string after replace the text
+*/
+
+void replaceString(char array[],char str[], char replace_str[]){
     
     printf("\nThay the gia tri trong chuoi\n");
     
@@ -68,9 +113,9 @@ void ReplaceString(char array[],char str[], char replace_str[]){
     // uint8_t count = FindText(array, str);
 
     // Tính độ dài chuỗi
-    uint8_t size_str = take_length(str);
-    uint8_t size_replace_str = take_length(replace_str);
-    uint8_t size_array = take_length(array);
+    uint8_t size_str = takeLength(str);
+    uint8_t size_replace_str = takeLength(replace_str);
+    uint8_t size_array = takeLength(array);
 
     uint8_t count = 0;
 
@@ -99,7 +144,7 @@ void ReplaceString(char array[],char str[], char replace_str[]){
     // Copy ra một mảng mới
     
     uint8_t length_updated = (size_replace_str-size_str) * count + size_array;
-    char *new_string = malloc(((size_replace_str-size_str)*count + size_array )* sizeof(char));
+    char *new_string = (char *)malloc(((size_replace_str-size_str)*count + size_array )* sizeof(char));
     
     i = 0;
     uint8_t j = 0 ;
@@ -119,23 +164,9 @@ void ReplaceString(char array[],char str[], char replace_str[]){
         j++;
         i++;
         }
-    i=0;
-    for (i; i < length_updated ; i++)
+    
+    for (i=0; i < length_updated ; i++)
     {
         printf("%c", new_string[i]);
     }
-}
-
-
-int main(){
-
-    char input[] = "to help people around the world learn how to do anything. today we learn about that";
-
-    UpperCharacterAfterDot(input);
-
-    uint8_t count = FindText(input, "how to do");
-
-    ReplaceString(input, "how to do", "Hellooooooooooooo");
-
-    return 0;
 }

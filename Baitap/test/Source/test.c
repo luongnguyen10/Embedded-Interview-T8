@@ -1,10 +1,22 @@
-#include <stdio.h>
+/*
+* File: sample_file.c
+* Author: John Doe
+* Date: 24/03/2023
+* Description: This is a sample file for demonstrating block-level comment
+*/
+
+#include "function.h"
 #include <stdint.h>
 #include <stdlib.h>
 
+
+void printTest(){
+    printf("Test: hello world hihi haha\n");
+}
+
 // in hoa các kí tự sau sau dấu chấm. = > TODAY WE LEARN ABOUT THAT ...
 void upperCharacterAfterDot(char array[]){
-    uint8_t address = 0 ; 
+    
     uint8_t i = 0 ;
     uint8_t flat = 0;
 
@@ -97,7 +109,7 @@ void replaceString(char array[],char str[], char replace_str[]){
     // Copy ra một mảng mới
     
     uint8_t length_updated = (size_replace_str-size_str) * count + size_array;
-    char *new_string = malloc(((size_replace_str-size_str)*count + size_array )* sizeof(char));
+    char *new_string = (char *)malloc(((size_replace_str-size_str)*count + size_array )* sizeof(char));
     
     i = 0;
     uint8_t j = 0 ;
@@ -118,23 +130,9 @@ void replaceString(char array[],char str[], char replace_str[]){
         i++;
         }
     i=0;
-    for (i; i < length_updated ; i++)
+    for (i =0; i < length_updated ; i++)
     {
         printf("%c", new_string[i]);
     }
-}
-
-
-
-int main(){
-
-    char input[] = "to help people around the world learn how to do anything. today we learn about that";
-
-    upperCharacterAfterDot(input);
-
-    uint8_t count = findText(input, "how to do");
-
-    replaceString(input, "how to do", "Hellooooooooooooo");
-
-    return 0;
+    
 }
