@@ -7,7 +7,7 @@
 * File: function.c
 * Author: Nguyen Ba Luong
 * Date: 06/09/2023
-* Description: File the the day of week from the given date 
+* Description: upper Character After Dot; Find and Replace the String
 */
 
 /*
