@@ -894,13 +894,92 @@ int main(int argc, char const *argv[])
 <details> <summary> C++ Programming  </summary> 
 
 ## Class
+- Ví dụ một class cơ bản
+- Hàm trong C = Method
+- Biến trong c = Property
 
+### Khai báo class
+* Cấu trúc cơ bản của một class như sau
+```cpp
+using namespace std;
+class DoiTuong{
+    public: // Phạm vu truy cập
+        DoiTuong(){ // Đối tượng đầu tiên được gọi là Conductor không có thông số đầu vào
+            DoiTuong::ten = ten;   // Có tham số đầu vào
+            DoiTuong::tuoi = tuoi;
+        }
+
+
+        string ten;  // Property
+        int tuoi;
+        void nhapThongTin(string ten, int tuoi){
+            DoiTuong::ten = ten;
+            DoiTuong::tuoi = tuoi;
+            }
+        void hienThi(){ 
+            cout<<"Ten: "<<DoiTuong::ten<<endl;
+            cout<<"Tuoi: "<<DoiTuong::tuoi<<endl;
+        }
+};
+
+int main(int argc, char const *argv[]){
+    DoiTuong dt; // Object dt thuộc Class Doituong
+    
+    dt.nhapThongTin("Hoang", 21);
+    dt.hienThi();
+    return 0;
+}
+```
+### Constructors
+#### Constructors Có tham số đầu vào 
+- Khai báo Constructors có tham số đầu vào
+
+Khai báo 1 hàm tự động khởi chạy đầu tiên
 
 ```cpp
-#include <iostream>
-#include <stdint.h>
-#include <string.h>
+class DoiTuong{
+    public:
+        DoiTuong(string ten, int tuoi){ 
+            DoiTuong::ten = ten;  
+            DoiTuong::tuoi = tuoi;
+        }
+};
 
+int main(int argc, char const *argv[]){
+    DoiTuong dt(); 
+    return 0;
+}
+
+```
+#### Constructors Không có tham số đầu vào 
+- Khai báo Constructors có tham số đầu vào
+
+Khai báo 1 hàm tự động khởi chạy đầu tiên
+
+```cpp
+class DoiTuong{
+    public:
+        DoiTuong(){ 
+            DoiTuong::ten = ten;  
+            DoiTuong::tuoi = tuoi;
+        }
+};
+
+int main(int argc, char const *argv[]){
+    DoiTuong dt(); 
+    return 0;
+}
+
+```
+### Static
+Static member (thành viên tĩnh) trong class C++ cũng tương tự như với static variable (biến tĩnh) trong function
+
+* Đối với function, sau khi thực hiện xong khối lệnh và thoát thì static variable vẫn sẽ không mất đi
+* Đối với class, static member sẽ là thuộc tính dùng chung cho tất cả các đối tượng của class đó, cho dù là không có đối tượng nào tồn tại. Tức là có thể khai báo nhiều object, mỗi object các thuộc tính của nó đều khác nhau nhưng riêng static thì chỉ có một và static member tồn tại trong suốt chương trình cho dù có hay không có object nào của nó hay nói ngắn gọn là dùng chung một biến static
+
+- Khi khai báo một C
+
+```cpp
 using namespace std;
 
 class sinhvien 
@@ -914,8 +993,7 @@ class sinhvien
 
         void setNAME(string name){
             NAME = name;
-        }
-        
+        } 
 };
 
 
@@ -942,4 +1020,124 @@ int main(){
 ```
 
 Cách khai báo class khác
+
+
+## Template
+
+- Template có tính chất đa hình, Vd; viết 1 hàm sài kiểu Template
+* Thay vì phải viết lặp lại như thế này:
+
+```cpp
+using namespace std;
+
+int sum1 (int a, int b){
+    return a + b;
+}
+
+double sum2 (double a, double b){
+    return a + b;
+}
+
+int main(){
+
+    cout << sum1(4,5) << endl;
+    cout << sum2(3.5 , 2.2) << endl;
+    
+    return 0;
+}
+```
+
+* Thì sẽ viết lại theo template như sau:
+```cpp
+template <typename datatype>
+datatype sum(datatype a, datatype b){
+    return a + b;
+}
+
+int main(){
+
+    cout << sum(4,5) << endl;
+    cout << sum(3.5 , 2.2) << endl;
+    
+    return 0;
+}
+
+```
+
+```cpp
+9
+5.7
+
+```
+* Lưu ý:
+- Khi khai báo bao nhiêu typename thì lúc thì cần khai báo đủ các datatype truyền vào hàm
+
+
+
+`Namespace` là từ khóa trong C++ được sử dụng để định nghĩa một phạm vi nhằm mục đích phân biệt các hàm, lớp, biến, ... cùng tên trong các thư viện khác nhau.
+
+Khi tạo `namespace` nếu muốn dùng chung tên biến của các member thì khi khai báo tên của `namespace` thì phải khai báo tên khác nhau
+
+Nếu dùng chung tên của `namespace` thì tên của các member phải khác nhau (dù có chung file hay khác file), Do khai báo cùng tên `namespace` thì dùng chung bộ nhớ nên nếu tên các member cũng giống thì những member giống nhau sẽ cùng chung 1 địa thì sẽ dẫn đến xung đột vùng nhớ
+
+```c
+namespace conOngA{
+    int A = 10;
+}
+namspace conOngB{
+    int A = 20;
+}
+```
+
+## 2.OOP
+Có 4 đặc tính: Tính kế thừa, đa hình, trừa tượng và đóng gói
+
+**2.1 Inheritance (Tính kế thừa )**
+Trong lập trình hướng đối tượng có ý nghĩa, một class có thể kế thừa các thuộc tính của một class khác đã tồn tại trước đó. Khi một class con được tạo ra bởi việc kế thừa thuộc tính của class cha thì chúng ta sẽ gọi class con đó là subclass trong C++, và class cha chính là superclass trong C++
+
+
+**2.2 Abstraction (Tính trừu tượng)**
+Tính trừu tượng trong lập trình hướng đối tượng là một khả năng mà chương trình có thể bỏ qua sự phức tạp bằng cách tập trung vào cốt lõi của thông tin cần xử lý. Điều đó có nghĩa, bạn có thể xử lý một đối tượng bằng cách gọi tên một phương thức và thu về kết quả xử lý, mà không cần biết làm cách nào đối tượng đó được các thao tác trong class. Ví dụ đơn giản, bạn có thể nấu cơm bằng nồi cơm điện bằng cách rất đơn giản là ấn công tắc nấu, mà không cần biết là bên trong cái nồi cơm điện đó đã làm thế nào mà gạo có thể nấu thành cơm.
+
+**2.3 Polymorphism (Tính đa hình)**
+Tính đa hình trong lập trình hướng đối tượng là một khả năng mà một phương thức trong class có thể đưa ra các kết quả hoàn toàn khác nhau, tùy thuộc vào dữ liệu được xử lý.
+ 
+Ví dụ đơn giản, cùng là một class quản lý dữ liệu là các con vật, thì hành động sủa hay kêu của chúng được định nghĩa trong class sẽ cho ra kết quả khác nhau, ví dụ nếu là con mèo thì kêu meo meo, còn con chó thì sủa gâu gâu chẳng hạn. 
+
+```cpp
+//Tính đa hình
+using namespace std;
+
+class Toanhoc{
+    public:
+        void tong(int a, int b){
+            cout<<"tong a va b: "<<a+b<<endl;
+        }
+        void tong(int a, int b, int c){
+            cout<<"tong a, b va c: "<<a+b+c<<endl;
+        }
+    
+        int tong(int a, double b){
+            return a+(int)b;//ép kiểu
+        }
+};
+//C++ có thể tạo ra 2 hàm trùng tên chỉ cần khác input parameter
+int main(int argc, char const *argv[])
+{
+    Toanhoc th;
+    th.tong(8,3);
+
+    th.tong(7, 3, 5);
+    cout<<"Tong a va b: "<<th.tong(8, 12.5)<<endl;
+    
+    return 0;
+}
+```
+
+**2.4 Encapsulation (Tính đóng gói)**
+Tính đóng gói trong lập trình hướng đối tượng có ý nghĩa không cho phép người sử dụng các đối tượng thay đổi trạng thái nội tại của một đối tượng, mà chỉ có phương thức nội tại của đối tượng có thể thay đổi chính nó. Điều đó có nghĩa, dữ liệu và thông tin sẽ được đóng gói lại, giúp các tác động bên ngoài một đối tượng không thể làm thay đổi đối tượng đó, nên sẽ đảm bảo tính toàn vẹn của đối tượng, cũng như giúp dấu đi các dữ liệu thông tin cần được che giấu.
+
+
+
+
 </details>

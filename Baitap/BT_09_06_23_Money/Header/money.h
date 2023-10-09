@@ -4,19 +4,12 @@
 * Date: 06/09/2023
 * Description: This is a header file for demonstrating block-level comment
 */
-#ifndef STRING_H
-#define STRING_H
+#ifndef MONEY_H
+#define MONEY_H
 
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
 
-int takeSize(char array[]);
-
-void findBlank(char array[]);
-
-void reverse(char *start, char *end);
-
-void reverseWords(char *str);
 
 #endif
