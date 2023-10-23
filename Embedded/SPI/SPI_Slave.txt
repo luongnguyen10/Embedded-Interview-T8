@@ -1,0 +1,68 @@
+#include "stm32f10x.h"
+#include "stm32f10x_rcc.h"
+#include "stm32f10x_gpio.h"
+
+#define SCK 	GPIO_Pin_6
+#define MOSI 	GPIO_Pin_7
+#define SS 	GPIO_Pin_8
+#define PORT 	GPIOB
+
+void spi_Init();
+uint8_t receiveData();
+
+void waitStart();
+volatile uint8_t data = 0;
+
+int main(){
+		
+	spi_Init();
+	
+	while(1){
+		data = receiveData();
+	}
+	return 0;
+}
+
+void spi_Init(){
+	
+  GPIO_InitTypeDef  gpio_SPI; 
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+	
+  gpio_SPI.GPIO_Mode = GPIO_Mode_IPD;
+  gpio_SPI.GPIO_Pin = SCK | MOSI;
+  gpio_SPI.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOB, &gpio_SPI); 
+	
+	gpio_SPI.GPIO_Pin = SS;
+	gpio_SPI.GPIO_Mode = GPIO_Mode_IPU;
+  gpio_SPI.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_Init(GPIOB, &gpio_SPI); 
+}
+
+uint8_t receiveData(){
+	
+	uint8_t data = 0;
+	
+	while (GPIO_ReadInputDataBit(GPIOB, SS) == 1){}
+		
+	for(int i = 0; i <8; i++){
+		while (GPIO_ReadInputDataBit(GPIOB, SCK) == 0) {}
+			
+		if(GPIO_ReadInputDataBit(GPIOB, MOSI) == 1) data = data | ( 0x80 >> i);
+																									// 0000 0000 | 1000 0000 = 1000 0000 
+		while (GPIO_ReadInputDataBit(GPIOB, SCK) == 1) {}
+	
+	}
+
+	return data;
+}
+
+void waitStart(){
+	while(GPIO_ReadInputDataBit(GPIOB, SS) == 1){}
+		
+	
+}
+
+void endCondition(){
+	GPIO_SetBits(GPIOB, SS);
+}
