@@ -1088,6 +1088,21 @@ namspace conOngB{
     int A = 20;
 }
 ```
+Khai báo Constructors
+```cpp
+    int x, y;
+    Position(int x = 0,int y =0): x(x), y(y){}
+
+```
+Tương tự
+```cpp   
+Position(int x = 0,int y =0){
+    Position::x = x;
+    Position::y = y;
+}
+```
+
+
 
 ## 2.OOP
 Có 4 đặc tính: Tính kế thừa, đa hình, trừa tượng và đóng gói
@@ -1137,7 +1152,177 @@ int main(int argc, char const *argv[])
 **2.4 Encapsulation (Tính đóng gói)**
 Tính đóng gói trong lập trình hướng đối tượng có ý nghĩa không cho phép người sử dụng các đối tượng thay đổi trạng thái nội tại của một đối tượng, mà chỉ có phương thức nội tại của đối tượng có thể thay đổi chính nó. Điều đó có nghĩa, dữ liệu và thông tin sẽ được đóng gói lại, giúp các tác động bên ngoài một đối tượng không thể làm thay đổi đối tượng đó, nên sẽ đảm bảo tính toàn vẹn của đối tượng, cũng như giúp dấu đi các dữ liệu thông tin cần được che giấu.
 
+- Trong quá trình truy cập vào object không được truy cập trực tiếp mà phải thông qua method
 
+## Virtual function
+Hàm ảo (virtual function) là một hàm thành viên trong lớp cơ sở mà lớp dẫn xuất 
+khi kế thừa cần phải định nghĩa lại.
+
+Hàm ảo được sử dụng trong lớp cơ sở khi cần đảm bảo hàm ảo đó sẽ được định 
+nghĩa lại trong lớp dẫn xuất. Việc này rất cần thiết trong trường hợp con trỏ có 
+kiểu là lớp cơ sở trỏ đến đối tượng của lớp dẫn xuất.
+
+Hàm ảo là một phần không thể thiếu để thể hiện tính đa hình trong kế thừa được hỗ 
+trợ bởi nguồn ngữ C++.
+
+- Virtual Function là khi một hàm được khai báo Virtual thì ở class con kế thừa khi gọi hàm Virtual thì nó sẽ load lại giá trị mới nhất tại class con gọi là Overload.
+- Khi object là một class con và trỏ đến method của class cha, trong method class cha sẽ gọi những method khác. Những method đó nếu là kiểu Virtual function thì lúc đó nó sẽ lấy những function cùng cái tên đó mà được định nghĩa lại từ class con.
+
+Lưu ý: Con trỏ của lớp cơ sở có thể chứa địa chỉ của đối tượng thuộc lớp dẫn xuất, 
+nhưng ngược lại thì không được.
+
+Hàm ảo chỉ khác hàm thành phần thông thường khi được gọi từ một con trỏ. Sử 
+dụng hàm ảo khi muốn con trỏ đang trỏ tới đối tượng của lớp nào thì hàm thành phần 
+của lớp đó sẽ được gọi mà không xem xét đến kiểu của con trỏ.
+
+```cpp
+class Toanhoc{
+    public:
+        virtual char *txt(){
+            return (char*)"Hello world\n";
+        }
+
+        void display(){
+            printf('%s', txt());
+        }
+
+}
+
+class test: public Toanhoc{
+    public:
+       char *txt(){ // Overide
+            return (char*)"Hello world\n";
+        }
+}
+
+int main(){
+    Test th;
+
+    th.display(); // Overload
+
+    return 0;
+}
+```
+
+## Vector
+Giống như là mảng (array), vector trong C++ là một đối tượng dùng để chứa các đối 
+tượng khác, và các đối tượng được chứa này cũng được lưu trữ một cách liên tiếp 
+trong vector.
+
+Tuy nhiên, nếu như số lượng phần tử (size) của một mảng là cố định, thì ở vector, 
+nó hoàn toàn có thể thay đổi trong suốt quá trình làm việc của chương trình
+
+Modifiers
+1. push_back(): Hàm đẩy một phần tử vào vị trí sau cùng của vector. Nếu kiểu của 
+đối tượng được truyền dưới dạng tham số trong push_back() không giống với kiểu 
+của vector thì sẽ bị ném ra.
+ten-vector.push_back(ten-cua-phan-tu);
+2. assign(): Nó gán một giá trị mới cho các phần tử vector bằng cách thay thế các 
+giá trị cũ.
+ten-vector.assign(int size, int value);
+3. pop_back(): Hàm pop_back () được sử dụng để xóa đi phần tử cuối cùng một 
+vector.
+4. insert(): Hàm này chèn các phần tử mới vào trước phần tử trước vị trí được trỏ 
+bởi vòng lặp. Chúng ta cũng có thể chuyển một số đối số thứ ba, đếm số lần phần tử 
+được chèn vào trước vị trí được trỏ.
+5. erase(): Hàm được sử dụng để xóa các phần tử tùy theo vị trí vùng chứa
+6. emplace(): Nó mở rộng vùng chứa bằng cách chèn phần tử mới vào
+7. emplace_back(): Nó được sử dụng để chèn một phần tử mới vào vùng chứa 
+vector, phần tử mới sẽ được thêm vào cuối vector
+8. swap(): Hàm được sử dụng để hoán đổi nội dung của một vector này với một 
+vector khác cùng kiểu. Kích thước có thể khác nhau.
+9. clear(): Hàm được sử dụng để loại bỏ tất cả các phần tử của vùng chứa vector
+
+10. size(): trả về kích thước vector
+11. empty(): Kiểm tra vector có rỗng không
+
+
+
+bản chất vector là class một thư viện cung cấp các method, sử dụng malloc, calloc để cấp phát động
+
+```cpp
+#include vector
+
+int main(){
+
+    vector<int>array = {1,2,3,4,5,6};
+    for (int i =0; i< array.size(); i++){
+        printf("%d\n ", array[i]);
+    }
+}
+```
+
+
+## C++ Advance
+
+### Smart pointer
+
+- Cấp phát bộ nhớ động trong C++
+- Tuy nhiên khi muốn thu hồi vùng nhớ cần Delete nó đi
+```cpp
+
+int main(){
+    
+    int *ptr = new int; // Từ khoá new để cấp phát động
+
+    *ptr = 20;
+
+    cout << "ptr: "<< *ptr<< endl;
+
+    int *array = new int [10];
+    
+    for ( int i = 0; i < 10; i++){
+
+        array[i] = 2*i;
+
+    }
+
+    for ( int i = 0; i < 10; i++){
+        cout<<"i: " << i<< endl;
+
+    }
+    
+```
+
+
+- Smart pointer
+
+Lưu trong phân vùng nhớ Heap, Sau khi thực hiện xong chương trình sẽ tự động thu hồi vùng nhớ
+
+Tạo cấp phát động
+
+* Có 2 loại 
+- unique_ptr: Duy nhất một con trỏ vào địa chỉ
+- shared_ptr: Nhiều con trỏ vào 1 địa chỉ
+
+
+### Threads
+
+Thêm thư viện
+```cpp
+#include <thread>
+
+```
+
+
+```cpp
+#include <thread>
+#include <chrono>
+
+void task1(){
+    int i =0;
+    while(1){
+        this_thread::sleep_for(chrono::seconds(1)); // làm chương trình delay 1s
+        cout<<"i = "<< i++ <<endl;
+    }
+    
+}
+
+int main(){
+    task1();
+}
+
+```
 
 
 </details>
