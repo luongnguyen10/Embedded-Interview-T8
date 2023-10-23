@@ -1102,12 +1102,10 @@ Position(int x = 0,int y =0){
 }
 ```
 
-
-
 ## 2.OOP
 Có 4 đặc tính: Tính kế thừa, đa hình, trừa tượng và đóng gói
 
-**2.1 Inheritance (Tính kế thừa )**
+**2.1 Inheritance (Tính kế thừa)**
 Trong lập trình hướng đối tượng có ý nghĩa, một class có thể kế thừa các thuộc tính của một class khác đã tồn tại trước đó. Khi một class con được tạo ra bởi việc kế thừa thuộc tính của class cha thì chúng ta sẽ gọi class con đó là subclass trong C++, và class cha chính là superclass trong C++
 
 
@@ -1326,3 +1324,13 @@ int main(){
 
 
 </details>
+
+
+# Embedded
+## SPI 
+
+* Giao tiếp SPI Giữa Stm32f1
+Link: https://drive.google.com/file/d/1VeqQnznL7fRPR8Jus4FuP8C-1w7QV76j/view?usp=share_link
+
+
+
